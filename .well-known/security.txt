@@ -1,0 +1,4 @@
+Contact: mailto:contact@ag-digitalhub.eu
+Expires: 2027-06-14T00:00:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://ag-digitalhub.eu/.well-known/security.txt
