@@ -231,12 +231,12 @@ section{padding:80px 24px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-field{display:flex;flex-direction:column;gap:6px;text-align:left}
 .form-field label{font-size:12px;font-weight:600;color:rgba(255,255,255,.80);letter-spacing:.3px;text-transform:uppercase}
-.form-field input,.form-field select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 15px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none}
+.form-field input:not([type=checkbox]),.form-field select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 15px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none}
 .form-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
 .form-field select option{background:#122236;color:var(--white)}
 .form-field input::placeholder{color:rgba(255,255,255,.25)}
 .form-field input:focus,.form-field select:focus{border-color:var(--orange);background:rgba(255,255,255,.1)}
-.form-field.error input,.form-field.error select{border-color:#F87171}
+.form-field.error input:not([type=checkbox]),.form-field.error select{border-color:#F87171}
 .field-error{display:none;font-size:11px;color:#F87171;margin-top:4px;font-style:normal}
 .field-error:not(:empty){display:block}
 .form-submit{width:100%;background:var(--orange);color:var(--white);font-family:var(--fh);font-size:18px;font-weight:800;padding:17px;border:none;border-radius:12px;cursor:pointer;margin-top:8px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 6px 28px rgba(249,115,22,.35);letter-spacing:-.3px}
