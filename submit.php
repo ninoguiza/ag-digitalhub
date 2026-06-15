@@ -11,10 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // --- Rate limiting : 5 requêtes max par IP par minute ---
 $ip      = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $rl_file = sys_get_temp_dir() . '/agdh_rl_' . md5($ip) . '.json';
+$lock    = fopen(sys_get_temp_dir() . '/agdh_rl_lock_' . md5($ip) . '.lock', 'c');
+flock($lock, LOCK_EX);
 $now     = time();
 $rl      = file_exists($rl_file) ? json_decode(file_get_contents($rl_file), true) : ['count' => 0, 'ts' => $now];
 if ($now - $rl['ts'] < 60) {
     if ($rl['count'] >= 5) {
+        flock($lock, LOCK_UN); fclose($lock);
         http_response_code(429);
         echo json_encode(['error' => 'Trop de requêtes. Réessayez dans une minute.']);
         exit;
@@ -24,6 +27,7 @@ if ($now - $rl['ts'] < 60) {
     $rl = ['count' => 1, 'ts' => $now];
 }
 file_put_contents($rl_file, json_encode($rl));
+flock($lock, LOCK_UN); fclose($lock);
 
 // --- Content-Type enforcement ---
 $ct = $_SERVER['CONTENT_TYPE'] ?? '';
@@ -36,7 +40,7 @@ if (strpos($ct, 'application/json') === false) {
 // --- Parsing JSON ---
 $raw   = file_get_contents('php://input');
 $input = json_decode($raw, true);
-if (!$input) {
+if (json_last_error() !== JSON_ERROR_NONE || !is_array($input)) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid JSON']);
     exit;
@@ -80,7 +84,6 @@ $body    = "Nouvelle demande via ag-digitalhub.eu\n\n"
          . "Date        : " . date('d/m/Y H:i') . " UTC";
 
 $headers  = "From: noreply@ag-digitalhub.eu\r\n";
-$headers .= "Reply-To: " . str_replace(["\r", "\n"], '', $phone) . "\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: AG-Mailer/1.0";
 

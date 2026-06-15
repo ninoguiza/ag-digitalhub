@@ -14,13 +14,6 @@
 RedirectMatch 404 /\.git(/|$)
 RedirectMatch 404 /\.env$
 
-# Deny direct access to PHP backend
-<Files "submit.php">
-    <RequireAll>
-        Require all granted
-    </RequireAll>
-</Files>
-
 # HTTPS redirect
 <IfModule mod_rewrite.c>
     RewriteEngine On
