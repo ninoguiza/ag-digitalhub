@@ -53,7 +53,7 @@ $rdv    = htmlspecialchars(trim($input['rdv']    ?? ''), ENT_QUOTES, 'UTF-8');
 
 // Validation stricte du téléphone — neutralise l'injection d'en-têtes email
 $raw_phone = trim($input['phone'] ?? '');
-if (!preg_match('/^\+?[\d\s\-\(\)]{7,20}$/', $raw_phone)) {
+if (!preg_match('/^\+?[\d\s\-\(\)\.\/]{7,20}$/', $raw_phone)) {
     http_response_code(400);
     echo json_encode(['error' => 'Numéro de téléphone invalide']);
     exit;
