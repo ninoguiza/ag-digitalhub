@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: https://garage.ag-digitalhub.eu');
+header('Cache-Control: no-store, no-cache, must-revalidate');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -47,9 +48,29 @@ if (json_last_error() !== JSON_ERROR_NONE || !is_array($input)) {
 }
 
 // --- Validation et sanitisation des champs ---
-$name   = htmlspecialchars(trim($input['name']   ?? ''), ENT_QUOTES, 'UTF-8');
-$garage = htmlspecialchars(trim($input['garage'] ?? ''), ENT_QUOTES, 'UTF-8');
-$rdv    = htmlspecialchars(trim($input['rdv']    ?? ''), ENT_QUOTES, 'UTF-8');
+$name   = htmlspecialchars(str_replace(["\r", "\n", "\t"], '', trim($input['name']   ?? '')), ENT_QUOTES, 'UTF-8');
+$garage = htmlspecialchars(str_replace(["\r", "\n", "\t"], '', trim($input['garage'] ?? '')), ENT_QUOTES, 'UTF-8');
+
+if (empty($name) || mb_strlen($name) > 80) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Prénom invalide']);
+    exit;
+}
+if (empty($garage) || mb_strlen($garage) > 100) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Nom de garage invalide']);
+    exit;
+}
+
+// Whitelist volume RDV
+$allowed_rdv = ['moins-10', '10-20', '20-30', 'plus-30'];
+$rdv_raw = trim($input['rdv'] ?? '');
+if (!in_array($rdv_raw, $allowed_rdv, true)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Volume RDV invalide']);
+    exit;
+}
+$rdv = $rdv_raw;
 
 // Validation stricte du téléphone — neutralise l'injection d'en-têtes email
 $raw_phone = trim($input['phone'] ?? '');
@@ -59,12 +80,6 @@ if (!preg_match('/^\+?[\d\s\-\(\)\.\/]{7,20}$/', $raw_phone)) {
     exit;
 }
 $phone = str_replace(["\r", "\n", "\t"], '', htmlspecialchars($raw_phone, ENT_QUOTES, 'UTF-8'));
-
-if (empty($name) || empty($phone)) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Champs requis manquants']);
-    exit;
-}
 
 // --- Validation consentement RGPD côté serveur ---
 if (empty($input['gdpr']) || $input['gdpr'] !== true) {
@@ -87,5 +102,5 @@ $headers  = "From: noreply@ag-digitalhub.eu\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: AG-Mailer/1.0";
 
-$sent = mail($to, $subject, $body, $headers);
-echo json_encode(['success' => $sent]);
+mail($to, $subject, $body, $headers);
+echo json_encode(['success' => true]);

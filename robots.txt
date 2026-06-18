@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /submit.php
 
-Sitemap: https://ag-digitalhub.eu/sitemap.xml
+Sitemap: https://garage.ag-digitalhub.eu/sitemap.xml

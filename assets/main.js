@@ -3,6 +3,41 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold: 0.1});
 document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 
+// Marquer les SVGs décoratifs comme masqués aux lecteurs d'écran
+document.querySelectorAll('svg:not([aria-label]):not([role="img"])').forEach(s => {
+  s.setAttribute('aria-hidden', 'true');
+  s.setAttribute('focusable', 'false');
+});
+
+// Respecter prefers-reduced-motion : stopper la vidéo autoplay
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.demo-video').forEach(v => {
+    v.pause();
+    v.removeAttribute('autoplay');
+  });
+}
+
+// Bouton pause / lecture vidéo démo — DOM pur, pas de innerHTML
+const vidToggle = document.getElementById('vid-toggle');
+const demoVideo = document.querySelector('.demo-video');
+if (vidToggle && demoVideo) {
+  const iconPause = vidToggle.querySelector('.icon-pause');
+  const iconPlay  = vidToggle.querySelector('.icon-play');
+  vidToggle.addEventListener('click', () => {
+    if (demoVideo.paused) {
+      demoVideo.play();
+      vidToggle.setAttribute('aria-label', 'Mettre en pause la vidéo');
+      if (iconPause) iconPause.style.display = '';
+      if (iconPlay)  iconPlay.style.display  = 'none';
+    } else {
+      demoVideo.pause();
+      vidToggle.setAttribute('aria-label', 'Lancer la vidéo');
+      if (iconPause) iconPause.style.display = 'none';
+      if (iconPlay)  iconPlay.style.display  = '';
+    }
+  });
+}
+
 document.getElementById('contact-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -32,6 +67,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   const btn = document.getElementById('form-btn');
   btn.disabled = true;
   btn.textContent = 'Envoi en cours…';
+  btn.setAttribute('aria-busy', 'true');
+  btn.setAttribute('aria-label', 'Envoi en cours, veuillez patienter');
 
   const ctrl = new AbortController();
   const timeout = setTimeout(() => ctrl.abort(), 10000);
@@ -51,11 +88,14 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     clearTimeout(timeout);
     if (!r.ok) throw new Error('server');
     document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-error').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   }).catch(() => {
     clearTimeout(timeout);
     btn.disabled = false;
     btn.textContent = 'Réessayer';
+    btn.removeAttribute('aria-busy');
+    btn.removeAttribute('aria-label');
     document.getElementById('form-error').style.display = 'block';
   });
 });
