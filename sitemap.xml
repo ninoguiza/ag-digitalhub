@@ -7,21 +7,9 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://garage.ag-digitalhub.eu/mentions-legales.html</loc>
+    <loc>https://garage.ag-digitalhub.eu/blog/augmenter-rdv-garage-auto.html</loc>
     <lastmod>2026-06-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://garage.ag-digitalhub.eu/politique-de-confidentialite.html</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://garage.ag-digitalhub.eu/conditions-generales.html</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
