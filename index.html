@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Système RDV Automatique pour Garages Auto | AG Digital Hub — Belgique</title>
+<title>Système RDV Automatique pour Garages Auto | GarageRDV — Belgique</title>
 
 <!-- SEO -->
 <meta name="description" content="Système automatique qui transforme vos appels en RDV confirmés. +10 à 20 RDV/semaine pour garages auto en BE, FR, LU. Audit gratuit — sans engagement.">
@@ -21,21 +21,21 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garage.ag-digitalhub.eu/">
-<meta property="og:title" content="Système RDV Automatique pour Garages Auto | AG Digital Hub — Belgique">
+<meta property="og:title" content="Système RDV Automatique pour Garages Auto | GarageRDV — Belgique">
 <meta property="og:description" content="Système automatique qui transforme vos appels en RDV confirmés. +10 à 20 RDV/semaine pour garages auto BE/FR/LU. Audit gratuit.">
 <meta property="og:locale" content="fr_BE">
-<meta property="og:site_name" content="AG Digital Hub">
+<meta property="og:site_name" content="GarageRDV">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Système RDV Automatique pour Garages Auto | AG Digital Hub — Belgique">
+<meta name="twitter:title" content="Système RDV Automatique pour Garages Auto | GarageRDV — Belgique">
 <meta name="twitter:description" content="Système automatique qui transforme vos appels en RDV confirmés. +10 à 20 RDV/semaine pour garages auto BE/FR/LU. Audit gratuit.">
 <meta property="og:image" content="https://garage.ag-digitalhub.eu/og-image.jpg">
 <meta property="og:image:secure_url" content="https://garage.ag-digitalhub.eu/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="AG Digital Hub — Système RDV automatique pour garages auto en Belgique, France et Luxembourg">
+<meta property="og:image:alt" content="GarageRDV — Système RDV automatique pour garages auto en Belgique, France et Luxembourg">
 <meta name="twitter:image" content="https://garage.ag-digitalhub.eu/og-image.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
@@ -45,7 +45,8 @@
 {
   "@context": "https://schema.org",
   "@type": ["ProfessionalService", "MarketingAgency"],
-  "name": "AG Digital Hub — Garages Auto",
+  "name": "GarageRDV",
+  "alternateName": "AG Digital Hub — Garages Auto",
   "description": "Système d'acquisition de clients automatisé pour garages auto locaux en Belgique, France et Luxembourg. +10 à 20 RDV par semaine, sans appels inutiles.",
   "url": "https://garage.ag-digitalhub.eu",
   "email": "contact@ag-digitalhub.eu",
@@ -136,8 +137,10 @@ body{font-family:var(--fb);color:var(--text);background:var(--white);line-height
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.2)}
-.nav-logo{font-family:var(--fh);font-size:17px;font-weight:800;color:var(--white);letter-spacing:-.3px}
+.nav-logo{font-family:var(--fh);font-size:17px;font-weight:800;color:var(--white);letter-spacing:-.3px;display:flex;align-items:center;gap:9px;text-decoration:none}
 .nav-logo span{color:var(--orange)}
+.nav-logo-icon{width:26px;height:26px;flex-shrink:0;background:var(--grad-o);border-radius:7px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(249,115,22,.35)}
+.nav-logo-icon svg{width:15px;height:15px;color:#fff;stroke-width:2.5}
 .nav-cta{background:var(--grad-o);color:var(--white);font-weight:700;font-size:13px;padding:10px 20px;border-radius:8px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(249,115,22,.3);white-space:nowrap}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(249,115,22,.45)}
 
@@ -359,7 +362,12 @@ footer a:hover{color:var(--orange-l)}
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">AG<span>Digital</span>Hub</div>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    </div>
+    Garage<span>RDV</span>
+  </div>
   <a href="#audit" class="nav-cta">Audit gratuit &#8594;</a>
 </nav>
 
@@ -795,8 +803,8 @@ footer a:hover{color:var(--orange-l)}
 
 <!-- FOOTER -->
 <footer>
-  <p><strong>AG Digital Hub</strong> &#8212; Syst&#232;mes d&#8217;acquisition de clients pour garages locaux en Europe</p>
-  <p style="margin-top:8px">&#169; 2026 AG Digital Hub &#160;&#183;&#160; <a href="mailto:contact@ag-digitalhub.eu">contact@ag-digitalhub.eu</a></p>
+  <p><strong>GarageRDV</strong> &#8212; Syst&#232;mes d&#8217;acquisition de clients pour garages locaux en Europe</p>
+  <p style="margin-top:8px">&#169; 2026 GarageRDV &#160;&#183;&#160; <a href="mailto:contact@ag-digitalhub.eu">contact@ag-digitalhub.eu</a></p>
   <p style="margin-top:12px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
     <a href="/mentions-legales.html">Mentions l&#233;gales</a>
     <span style="opacity:.2">&#183;</span>
@@ -804,7 +812,7 @@ footer a:hover{color:var(--orange-l)}
     <span style="opacity:.2">&#183;</span>
     <a href="/conditions-generales.html">Conditions g&#233;n&#233;rales</a>
   </p>
-  <p style="margin-top:16px;font-size:11px;opacity:.3">Un service d&#8217;AG Digital Hub &#8212; Agence digitale Belgique</p>
+  <p style="margin-top:16px;font-size:11px;opacity:.3">GarageRDV est un service d&#8217;AG Digital Hub &#8212; Agence digitale Belgique</p>
 </footer>
 
 <!-- TELEGRAM -->
@@ -812,7 +820,7 @@ footer a:hover{color:var(--orange-l)}
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
 </a>
 
-<script src="/assets/main.js?v=15b" defer></script>
+<script src="/assets/main.js?v=15c" defer></script>
 <script src="https://rdv.ag-digitalhub.eu/widget.js?g=nino&type=audit-rdv&color=F97316&label=Audit%20gratuit" defer></script>
 </body>
 </html>
