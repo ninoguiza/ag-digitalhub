@@ -41,6 +41,20 @@ if (vidToggle && demoVideo) {
 document.getElementById('contact-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
+  // Validation email optionnel
+  const emailEl  = document.getElementById('inp-email');
+  const emailWr  = document.getElementById('f-email');
+  const emailErr = document.getElementById('inp-email-error');
+  if (emailEl && emailEl.value.trim() !== '') {
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRx.test(emailEl.value.trim())) {
+      if (emailWr)  emailWr.classList.add('error');
+      if (emailErr) emailErr.textContent = 'Adresse email invalide';
+      emailEl.addEventListener('input', () => { emailWr?.classList.remove('error'); if (emailErr) emailErr.textContent = ''; }, {once:true});
+      return;
+    }
+  }
+
   const fields = [
     {id:'inp-name',  wrap:'f-name',  msg:'Votre prénom est requis'},
     {id:'inp-phone', wrap:'f-phone', msg:'Votre téléphone est requis'},
@@ -80,6 +94,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     body: JSON.stringify({
       name:   document.getElementById('inp-name').value.trim(),
       phone:  document.getElementById('inp-phone').value.trim(),
+      email:  (document.getElementById('inp-email')?.value || '').trim(),
       garage: document.getElementById('inp-garage').value.trim(),
       rdv:    document.getElementById('inp-rdv').value,
       gdpr:   document.getElementById('inp-gdpr').checked
