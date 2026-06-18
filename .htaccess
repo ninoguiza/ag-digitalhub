@@ -1,3 +1,5 @@
+DirectoryIndex index.php page.html index.html
+
 # Security Headers
 <IfModule mod_headers.c>
     Header always set X-Frame-Options "DENY"
