@@ -38,6 +38,70 @@ if (vidToggle && demoVideo) {
   });
 }
 
+// Chat widget
+(function(){
+  var btn=document.getElementById('chat-btn'),panel=document.getElementById('chat-panel'),
+      msgs=document.getElementById('chat-messages'),input=document.getElementById('chat-input'),
+      send=document.getElementById('chat-send'),closeBtn=document.getElementById('chat-close-btn');
+  if(!btn)return;
+  var chatHistory=[],isOpen=false,busy=false,welcomed=false;
+  function toggleChat(){
+    isOpen=!isOpen;
+    panel.classList.toggle('open',isOpen);
+    panel.setAttribute('aria-hidden',String(!isOpen));
+    btn.setAttribute('aria-expanded',String(isOpen));
+    if(isOpen){
+      if(!welcomed){welcomed=true;addBot('Bonjour ! Je suis l\'assistant Garage.RDV. Comment puis-je vous aider ?');}
+      setTimeout(function(){input.focus();},80);
+    }else{btn.focus();}
+  }
+  function addMsg(text,role){
+    var d=document.createElement('div');d.className='msg '+role;
+    var b=document.createElement('div');b.className='msg-bubble';b.textContent=text;
+    d.appendChild(b);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  }
+  function addBot(t){addMsg(t,'bot');}
+  function addUser(t){addMsg(t,'user');}
+  function showTyping(){
+    var d=document.createElement('div');d.className='msg bot';d.id='chat-typing';
+    var typing=document.createElement('div');typing.className='msg-typing';
+    for(var i=0;i<3;i++){typing.appendChild(document.createElement('span'));}
+    d.appendChild(typing);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  }
+  function hideTyping(){var t=document.getElementById('chat-typing');if(t)t.remove();}
+  function sendMsg(){
+    var text=input.value.trim();
+    if(!text||busy)return;
+    input.value='';busy=true;send.disabled=true;
+    addUser(text);
+    var prevHistory=chatHistory.slice(-8);
+    chatHistory.push({role:'user',content:text});
+    showTyping();
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST','/chat-proxy.php',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.timeout=28000;
+    xhr.onload=function(){
+      hideTyping();
+      var reply='Je suis momentanément indisponible. Utilisez le formulaire.';
+      try{reply=JSON.parse(xhr.responseText).reply||reply;}catch(e){}
+      addBot(reply);chatHistory.push({role:'assistant',content:reply});
+      busy=false;send.disabled=false;input.focus();
+    };
+    xhr.onerror=xhr.ontimeout=function(){
+      hideTyping();
+      addBot('Connexion impossible. Veuillez réessayer ou utiliser le formulaire ci-dessous.');
+      busy=false;send.disabled=false;
+    };
+    xhr.send(JSON.stringify({message:text,history:prevHistory}));
+  }
+  btn.addEventListener('click',toggleChat);
+  closeBtn.addEventListener('click',toggleChat);
+  send.addEventListener('click',sendMsg);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen){toggleChat();}});
+})();
+
 document.getElementById('contact-form').addEventListener('submit', function(e) {
   e.preventDefault();
 

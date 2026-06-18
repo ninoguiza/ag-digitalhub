@@ -32,5 +32,13 @@ RedirectMatch 404 /\.env$
     ExpiresByType application/javascript "access plus 1 month"
     ExpiresByType video/mp4         "access plus 6 months"
     ExpiresByType video/webm        "access plus 6 months"
-    ExpiresByType text/html         "access plus 1 hour"
+</IfModule>
+
+# HTML : no CDN/browser cache — always fetch fresh
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header unset Expires
+    </FilesMatch>
 </IfModule>
