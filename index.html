@@ -333,11 +333,43 @@ footer strong{color:rgba(255,255,255,.4)}
 footer a{color:var(--orange);text-decoration:none;transition:color .15s}
 footer a:hover{color:var(--orange-l)}
 
-/* TELEGRAM */
-.tg-btn{position:fixed;bottom:24px;right:24px;z-index:200;width:56px;height:56px;background:#229ED9;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(34,158,217,.4);text-decoration:none;transition:transform .2s,box-shadow .2s;animation:tgp 3s ease-in-out infinite}
-.tg-btn:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(34,158,217,.55);animation:none}
-.tg-btn svg{width:28px;height:28px;color:#fff}
-@keyframes tgp{0%,100%{box-shadow:0 6px 24px rgba(34,158,217,.4)}50%{box-shadow:0 6px 36px rgba(34,158,217,.65),0 0 0 8px rgba(34,158,217,.12)}}
+/* CHAT WIDGET */
+#chat-widget{position:fixed;bottom:24px;right:24px;z-index:9000;font-family:var(--fh)}
+#chat-btn{width:56px;height:56px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(249,115,22,.45);transition:transform .2s,box-shadow .2s;animation:chat-pulse 3s ease-in-out infinite;color:#fff}
+#chat-btn:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(249,115,22,.6);animation:none}
+#chat-btn svg{width:26px;height:26px;flex-shrink:0}
+@keyframes chat-pulse{0%,100%{box-shadow:0 6px 24px rgba(249,115,22,.45)}50%{box-shadow:0 6px 36px rgba(249,115,22,.7),0 0 0 8px rgba(249,115,22,.1)}}
+#chat-panel{display:none;position:absolute;bottom:68px;right:0;width:340px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06);overflow:hidden;flex-direction:column}
+#chat-panel.open{display:flex}
+.chat-header{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;font-weight:800;color:#fff}
+.chat-hinfo{flex:1;min-width:0}
+.chat-hname{font-size:14px;font-weight:700;line-height:1.2}
+.chat-hstatus{font-size:11px;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px}
+.chat-hstatus::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.chat-close{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;padding:4px;font-size:18px;line-height:1;border-radius:4px;transition:color .15s,background .15s;margin-left:auto;flex-shrink:0}
+.chat-close:hover{color:#fff;background:rgba(255,255,255,.1)}
+#chat-messages{flex:1;padding:16px 14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:300px;max-height:340px;background:#f8fafc}
+.msg{display:flex;flex-direction:column;max-width:82%;animation:msg-in .25s ease}
+@keyframes msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.user{align-self:flex-end;align-items:flex-end}
+.msg.bot{align-self:flex-start;align-items:flex-start}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;word-break:break-word}
+.msg.user .msg-bubble{background:var(--orange);color:#fff;border-bottom-right-radius:4px}
+.msg.bot .msg-bubble{background:#fff;color:#1e293b;border:1px solid #e2e8f0;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.msg-typing{display:flex;gap:4px;padding:10px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;border-bottom-left-radius:4px;align-items:center}
+.msg-typing span{width:7px;height:7px;border-radius:50%;background:#94a3b8;display:inline-block;animation:dot-bounce .9s ease-in-out infinite}
+.msg-typing span:nth-child(2){animation-delay:.2s}
+.msg-typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot-bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.chat-input-area{padding:12px 14px;border-top:1px solid #e2e8f0;background:#fff;display:flex;gap:8px;align-items:center}
+#chat-input{flex:1;border:1px solid #e2e8f0;border-radius:10px;padding:9px 12px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .15s;color:#1e293b;background:#f8fafc}
+#chat-input:focus{border-color:var(--orange)}
+#chat-send{width:36px;height:36px;background:var(--orange);border:none;border-radius:10px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+#chat-send:hover{background:var(--orange-d)}
+#chat-send:disabled{background:#94a3b8;cursor:not-allowed}
+#chat-send svg{width:16px;height:16px}
+@media(max-width:400px){#chat-panel{width:calc(100vw - 32px);right:-8px}}
 
 /* FADE IN */
 .fi{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
@@ -379,7 +411,7 @@ footer a:hover{color:var(--orange-l)}
   .stat-sep{display:none}
   .urgency-inner{flex-direction:column;text-align:center}
 }
-@media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none}.tg-btn{animation:none}.demo-video{display:none}}
+@media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none}#chat-btn,#chat-panel .msg{animation:none}.msg-typing span{animation:none}.demo-video{display:none}}
 .skip-link{position:absolute;left:-9999px;top:8px;z-index:9999;background:var(--orange);color:#fff;padding:8px 16px;border-radius:6px;font-weight:700;font-family:var(--fh);text-decoration:none;font-size:14px}
 .skip-link:focus{left:8px}
 .vid-pause-btn{position:absolute;top:12px;left:12px;z-index:10;background:rgba(13,27,42,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
@@ -897,12 +929,96 @@ footer a:hover{color:var(--orange-l)}
   <p style="margin-top:16px;font-size:11px;opacity:.3">Garage.RDV est un service d&#8217;AG Digital Hub &#8212; Agence digitale Belgique</p>
 </footer>
 
-<!-- TELEGRAM -->
-<a href="https://t.me/agdigitalhub" class="tg-btn" target="_blank" rel="noopener" aria-label="Nous contacter sur Telegram">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-</a>
+<!-- CHAT WIDGET -->
+<div id="chat-widget" aria-label="Assistant Garage.RDV" role="complementary">
+  <div id="chat-panel" aria-hidden="true" aria-label="Chat Garage.RDV">
+    <div class="chat-header">
+      <div class="chat-avatar" aria-hidden="true">G</div>
+      <div class="chat-hinfo">
+        <div class="chat-hname">Assistant Garage.RDV</div>
+        <div class="chat-hstatus">En ligne &#8212; r&#233;pond en quelques secondes</div>
+      </div>
+      <button class="chat-close" id="chat-close-btn" aria-label="Fermer le chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="chat-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Votre message..." aria-label="Message" maxlength="500" autocomplete="off">
+      <button id="chat-send" aria-label="Envoyer le message">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <button id="chat-btn" aria-expanded="false" aria-controls="chat-panel" aria-label="Ouvrir le chat Garage.RDV">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  </button>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('chat-btn'),panel=document.getElementById('chat-panel'),
+      msgs=document.getElementById('chat-messages'),input=document.getElementById('chat-input'),
+      send=document.getElementById('chat-send'),closeBtn=document.getElementById('chat-close-btn');
+  var chatHistory=[],isOpen=false,busy=false,welcomed=false;
+  function toggleChat(){
+    isOpen=!isOpen;
+    panel.classList.toggle('open',isOpen);
+    panel.setAttribute('aria-hidden',String(!isOpen));
+    btn.setAttribute('aria-expanded',String(isOpen));
+    if(isOpen){
+      if(!welcomed){welcomed=true;addBot('Bonjour ! Je suis l\'assistant Garage.RDV. Comment puis-je vous aider ?');}
+      setTimeout(function(){input.focus();},80);
+    }else{btn.focus();}
+  }
+  function addMsg(text,role){
+    var d=document.createElement('div');d.className='msg '+role;
+    var b=document.createElement('div');b.className='msg-bubble';b.textContent=text;
+    d.appendChild(b);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  }
+  function addBot(t){addMsg(t,'bot');}
+  function addUser(t){addMsg(t,'user');}
+  function showTyping(){
+    var d=document.createElement('div');d.className='msg bot';d.id='chat-typing';
+    var typing=document.createElement('div');typing.className='msg-typing';
+    for(var i=0;i<3;i++){typing.appendChild(document.createElement('span'));}
+    d.appendChild(typing);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  }
+  function hideTyping(){var t=document.getElementById('chat-typing');if(t)t.remove();}
+  function sendMsg(){
+    var text=input.value.trim();
+    if(!text||busy)return;
+    input.value='';busy=true;send.disabled=true;
+    addUser(text);
+    var prevHistory=chatHistory.slice(-8);
+    chatHistory.push({role:'user',content:text});
+    showTyping();
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST','/chat-proxy.php',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.timeout=28000;
+    xhr.onload=function(){
+      hideTyping();
+      var reply='Je suis momentanément indisponible. Utilisez le formulaire.';
+      try{reply=JSON.parse(xhr.responseText).reply||reply;}catch(e){}
+      addBot(reply);chatHistory.push({role:'assistant',content:reply});
+      busy=false;send.disabled=false;input.focus();
+    };
+    xhr.onerror=xhr.ontimeout=function(){
+      hideTyping();
+      addBot('Connexion impossible. Veuillez réessayer ou utiliser le formulaire ci-dessous.');
+      busy=false;send.disabled=false;
+    };
+    xhr.send(JSON.stringify({message:text,history:prevHistory}));
+  }
+  btn.addEventListener('click',toggleChat);
+  closeBtn.addEventListener('click',toggleChat);
+  send.addEventListener('click',sendMsg);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen){toggleChat();}});
+})();
+</script>
 
-<script src="/assets/main.js?v=16c" defer></script>
+<script src="/assets/main.js?v=17a" defer></script>
 <script src="https://rdv.ag-digitalhub.eu/widget.js?g=nino&type=audit-rdv&color=F97316&label=Audit%20gratuit" defer></script>
 </body>
 </html>
