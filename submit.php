@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: https://ag-digitalhub.eu');
+header('Access-Control-Allow-Origin: https://garage.ag-digitalhub.eu');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -76,7 +76,7 @@ if (empty($input['gdpr']) || $input['gdpr'] !== true) {
 // --- Envoi email ---
 $to      = 'contact@ag-digitalhub.eu';
 $subject = '=?UTF-8?B?' . base64_encode("Nouvelle demande — $name ($garage)") . '?=';
-$body    = "Nouvelle demande via ag-digitalhub.eu\n\n"
+$body    = "Nouvelle demande via garage.ag-digitalhub.eu\n\n"
          . "Prénom      : $name\n"
          . "Téléphone   : $phone\n"
          . "Garage      : $garage\n"
